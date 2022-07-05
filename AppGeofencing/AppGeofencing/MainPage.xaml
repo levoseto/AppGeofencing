@@ -12,7 +12,7 @@
             <Label
                 FontSize="36"
                 HorizontalTextAlignment="Center"
-                Text="Welcome to Xamarin.Forms!"
+                Text="Ejemplo de localización en 2do plano"
                 TextColor="White" />
         </Frame>
         <Button Clicked="Button_Clicked" Text="Start/Stop" />
