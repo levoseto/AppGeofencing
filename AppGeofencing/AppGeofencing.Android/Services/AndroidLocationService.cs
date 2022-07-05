@@ -4,7 +4,6 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using AppGeofencing.Droid.Helpers;
 using AppGeofencing.Models;
 using AppGeofencing.Services;
 using System;
@@ -29,7 +28,6 @@ namespace AppGeofencing.Droid.Services
             return null;
         }
 
-        [return: GeneratedEnum]
         public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
         {
             _cts = new CancellationTokenSource();
