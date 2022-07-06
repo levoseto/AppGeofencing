@@ -2,6 +2,7 @@
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using AndroidX.Core.App;
 using AppGeofencing.Droid.Helpers;
 using AppGeofencing.Models;
 using AppGeofencing.Services;
@@ -29,6 +30,10 @@ namespace AppGeofencing.Droid.Services
 
             Notification notification = new
                 NotificationHelper().GetServiceStartedNotification();
+
+            var nmc = NotificationManagerCompat.From(this);
+            nmc.Notify(SERVICE_RUNNING_NOTIFICATION_ID, notification);
+
             StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, notification);
 
             Task.Run(() =>

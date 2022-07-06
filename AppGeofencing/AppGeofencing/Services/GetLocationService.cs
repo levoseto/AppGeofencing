@@ -11,10 +11,6 @@ namespace AppGeofencing.Services
     {
         private readonly bool stopping = false;
 
-        public GetLocationService()
-        {
-        }
-
         public async Task Run(CancellationToken token)
         {
             await Task.Run(async () =>
@@ -32,6 +28,7 @@ namespace AppGeofencing.Services
                         {
                             var message = new LocationMessage
                             {
+                                Message = "Location OK",
                                 Latitude = location.Latitude,
                                 Longitude = location.Longitude
                             };
@@ -46,7 +43,11 @@ namespace AppGeofencing.Services
                     {
                         MainThread.BeginInvokeOnMainThread(() =>
                         {
-                            var errormessage = new LocationErrorMessage();
+                            var errormessage = new LocationErrorMessage
+                            {
+                                Message = ex.Message
+                            };
+
                             MessagingCenter.Send(errormessage, "LocationError");
                         });
                     }
