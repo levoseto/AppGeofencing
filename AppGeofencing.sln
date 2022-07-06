@@ -7,7 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppGeofencing.Android", "Ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppGeofencing.iOS", "AppGeofencing\AppGeofencing.iOS\AppGeofencing.iOS.csproj", "{6AB6554B-057D-4D62-A0C2-EA5FD0470E2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppGeofencing", "AppGeofencing\AppGeofencing\AppGeofencing.csproj", "{B5E4561F-DA32-4F60-B09D-00BC7547AE24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppGeofencing", "AppGeofencing\AppGeofencing\AppGeofencing.csproj", "{B5E4561F-DA32-4F60-B09D-00BC7547AE24}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9F81F13D-20CB-46EC-B3A0-E7EA2569854C}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
