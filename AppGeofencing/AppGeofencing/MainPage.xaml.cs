@@ -49,6 +49,11 @@ namespace AppGeofencing
                             locationLabel.Text = "There was an error updating location!!";
                         });
                     });
+
+                if (Preferences.Get("LocationServiceRunning", false) == true)
+                {
+                    StartService();
+                }
             }
         }
 

@@ -61,6 +61,7 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\BootBroadcastReceiver.cs" />
     <Compile Include="Helpers\NotificationHelper.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />

@@ -1,13 +1,12 @@
-﻿using System;
-
-using Android.App;
-using Android.Content.PM;
-using Android.Runtime;
-using Android.OS;
+﻿using Android.App;
 using Android.Content;
-using Xamarin.Forms;
-using AppGeofencing.Models;
+using Android.Content.PM;
+using Android.OS;
+using Android.Runtime;
 using AppGeofencing.Droid.Services;
+using AppGeofencing.Models;
+using System;
+using Xamarin.Forms;
 
 namespace AppGeofencing.Droid
 {
@@ -15,6 +14,7 @@ namespace AppGeofencing.Droid
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         private Intent serviceIntent;
+        private const int RequestCode = 5469;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -25,6 +25,14 @@ namespace AppGeofencing.Droid
 
             serviceIntent = new Intent(this, typeof(AndroidLocationService));
             SetServiceMethods();
+
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.M &&
+                !Android.Provider.Settings.CanDrawOverlays(this))
+            {
+                var intent = new Intent(Android.Provider.Settings.ActionManageOverlayPermission);
+                intent.SetFlags(ActivityFlags.NewTask);
+                this.StartActivity(intent);
+            }
 
             LoadApplication(new App());
         }
@@ -78,6 +86,18 @@ namespace AppGeofencing.Droid
             }
 
             return false;
+        }
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            if (requestCode == RequestCode)
+            {
+                if (Android.Provider.Settings.CanDrawOverlays(this))
+                {
+                }
+            }
+
+            base.OnActivityResult(requestCode, resultCode, data);
         }
     }
 }
