@@ -20,17 +20,18 @@ namespace AppGeofencing.Services
                     token.ThrowIfCancellationRequested();
                     try
                     {
-                        await Task.Delay(2000);
+                        await Task.Delay(10000);
 
-                        var request = new GeolocationRequest(GeolocationAccuracy.High);
-                        var location = await Geolocation.GetLocationAsync(request);
+                        var request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(10));
+                        var location = await Geolocation.GetLocationAsync(request).ConfigureAwait(false);
                         if (location != null)
                         {
                             var message = new LocationMessage
                             {
-                                Message = "Location OK",
+                                Message = $"Location OK - {DateTime.Now}",
                                 Latitude = location.Latitude,
-                                Longitude = location.Longitude
+                                Longitude = location.Longitude,
+                                Altitude = location.Altitude ?? 0
                             };
 
                             MainThread.BeginInvokeOnMainThread(() =>
