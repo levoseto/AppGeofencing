@@ -22,7 +22,7 @@ namespace AppGeofencing.Services
                     {
                         await Task.Delay(10000);
 
-                        var request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(10));
+                        var request = new GeolocationRequest(GeolocationAccuracy.Default, TimeSpan.FromSeconds(10));
                         var location = await Geolocation.GetLocationAsync(request).ConfigureAwait(false);
                         if (location != null)
                         {
