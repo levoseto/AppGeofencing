@@ -16,6 +16,8 @@
                 TextColor="White" />
         </Frame>
         <Button Clicked="Button_Clicked" Text="Start/Stop" />
-        <Label x:Name="locationLabel" />
+        <ScrollView>
+            <Label x:Name="locationLabel" />
+        </ScrollView>
     </StackLayout>
 </ContentPage>

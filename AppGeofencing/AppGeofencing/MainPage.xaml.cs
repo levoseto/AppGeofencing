@@ -1,4 +1,5 @@
 ﻿using AppGeofencing.Models;
+using AppGeofencing.Services;
 using Plugin.Geolocator;
 using System;
 using Xamarin.Essentials;
@@ -8,6 +9,8 @@ namespace AppGeofencing
 {
     public partial class MainPage : ContentPage
     {
+        private static readonly LiteDBService _LiteDBService = new LiteDBService();
+
         public MainPage()
         {
             InitializeComponent();
@@ -23,12 +26,23 @@ namespace AppGeofencing
                     {
                         MainThread.BeginInvokeOnMainThread(() =>
                         {
+                            Console.WriteLine(message.Message);
                             locationLabel.Text += $"{Environment.NewLine}" +
-                            $"{message.Latitude}, {message.Longitude}," +
-                            $"{DateTime.Now.ToLongTimeString()}";
+                            $"Lat: {message.Latitude}, Long: {message.Longitude}, Alt:{message.Altitude}" +
+                            $" - {DateTime.Now.ToLongTimeString()}";
 
-                            Console.WriteLine($"{message.Latitude}, {message.Longitude}," +
-                            $"{DateTime.Now.ToLongTimeString()}");
+                            Console.WriteLine($"Lat: {message.Latitude}, Long: {message.Longitude}," +
+                            $", Alt:{message.Altitude} - {DateTime.Now.ToLongTimeString()}");
+
+                            var ubicacion = new Ubicacion
+                            {
+                                DbTimeStamp = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc),
+                                Altitud = message.Altitude,
+                                Latitud = message.Latitude,
+                                Longitud = message.Longitude,
+                            };
+
+                            _LiteDBService.Inserta(ubicacion);
                         });
                     });
 
@@ -63,6 +77,13 @@ namespace AppGeofencing
                 Permissions.RequestAsync<Permissions.LocationAlways>();
 
             if (permission == PermissionStatus.Denied)
+            {
+                return;
+            }
+
+            var memoryPermission = await Permissions.RequestAsync<Permissions.StorageWrite>();
+
+            if (memoryPermission == PermissionStatus.Denied)
             {
                 return;
             }
@@ -106,7 +127,7 @@ namespace AppGeofencing
             var startServiceMessage = new StartServiceMessage();
             MessagingCenter.Send(startServiceMessage, "ServiceStarted");
             Preferences.Set("LocationServiceRunning", true);
-            locationLabel.Text = "Location Service has been started!";
+            locationLabel.Text = $"Location Service has been started!";
         }
 
         private void StopService()

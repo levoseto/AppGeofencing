@@ -20,9 +20,9 @@ namespace AppGeofencing.Droid.Helpers
             var pendingIntent = PendingIntent.GetActivity(_Context, 0, intent, PendingIntentFlags.UpdateCurrent);
 
             var notificationBuilder = new NotificationCompat.Builder(_Context, _ForegroundChannelId)
-                .SetContentTitle("Xamarin.Forms Background Tracking Example")
+                .SetContentTitle("Background Tracking Example")
                 .SetContentText("Your location is being tracked")
-                .SetSmallIcon(Resource.Drawable.location)
+                .SetSmallIcon(Resource.Drawable.notification)
                 .SetOngoing(true)
                 .SetContentIntent(pendingIntent);
 
