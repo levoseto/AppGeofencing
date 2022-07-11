@@ -3,11 +3,10 @@
     x:Class="AppGeofencing.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-
     <StackLayout>
         <Frame
             Padding="24"
-            BackgroundColor="#2196F3"
+            BackgroundColor="Green"
             CornerRadius="0">
             <Label
                 FontSize="36"
@@ -15,9 +14,15 @@
                 Text="Ejemplo de localización en 2do plano"
                 TextColor="White" />
         </Frame>
-        <Button Clicked="Button_Clicked" Text="Start/Stop" />
-        <ScrollView>
-            <Label x:Name="locationLabel" />
-        </ScrollView>
+        <StackLayout x:Name="slContenedor">
+            <Button Clicked="Button_Clicked" Text="Start/Stop" />
+            <ScrollView>
+                <Label x:Name="locationLabel" />
+            </ScrollView>
+        </StackLayout>
+        <StackLayout x:Name="slCarga" IsVisible="False">
+            <ActivityIndicator x:Name="aiCarga" Color="Green" />
+            <Label x:Name="locationLabel2" />
+        </StackLayout>
     </StackLayout>
 </ContentPage>

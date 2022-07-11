@@ -17,7 +17,16 @@ namespace AppGeofencing.Droid.Helpers
             intent.AddFlags(ActivityFlags.SingleTop);
             intent.PutExtra("Title", "Message");
 
-            var pendingIntent = PendingIntent.GetActivity(_Context, 0, intent, PendingIntentFlags.UpdateCurrent);
+            PendingIntent pendingIntent = null;
+
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.S)
+            {
+                pendingIntent = PendingIntent.GetActivity(_Context, 0, intent, PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
+            }
+            else
+            {
+                pendingIntent = PendingIntent.GetActivity(_Context, 0, intent, PendingIntentFlags.UpdateCurrent);
+            }
 
             var notificationBuilder = new NotificationCompat.Builder(_Context, _ForegroundChannelId)
                 .SetContentTitle("Background Tracking Example")
@@ -33,9 +42,9 @@ namespace AppGeofencing.Droid.Helpers
                     Importance = NotificationImportance.High
                 };
                 notificationChannel.EnableLights(true);
-                notificationChannel.EnableVibration(true);
+                //notificationChannel.EnableVibration(true);
                 notificationChannel.SetShowBadge(true);
-                notificationChannel.SetVibrationPattern(new long[] { 100, 200, 300 });
+                //notificationChannel.SetVibrationPattern(new long[] { 100, 200, 300 });
 
                 var notificationManager = _Context.GetSystemService(Context.NotificationService) as NotificationManager;
                 if (notificationManager != null)

@@ -10,6 +10,7 @@ namespace AppGeofencing
     public partial class MainPage : ContentPage
     {
         private static readonly LiteDBService _LiteDBService = new LiteDBService();
+        private static Ubicacion ubicacion;
 
         public MainPage()
         {
@@ -26,15 +27,7 @@ namespace AppGeofencing
                     {
                         MainThread.BeginInvokeOnMainThread(() =>
                         {
-                            Console.WriteLine(message.Message);
-                            locationLabel.Text += $"{Environment.NewLine}" +
-                            $"Lat: {message.Latitude}, Long: {message.Longitude}, Alt:{message.Altitude}" +
-                            $" - {DateTime.Now.ToLongTimeString()}";
-
-                            Console.WriteLine($"Lat: {message.Latitude}, Long: {message.Longitude}," +
-                            $", Alt:{message.Altitude} - {DateTime.Now.ToLongTimeString()}");
-
-                            var ubicacion = new Ubicacion
+                            ubicacion = new Ubicacion
                             {
                                 DbTimeStamp = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc),
                                 Altitud = message.Altitude,
@@ -43,6 +36,17 @@ namespace AppGeofencing
                             };
 
                             _LiteDBService.Inserta(ubicacion);
+
+                            slContenedor.IsVisible = true;
+                            slCarga.IsVisible = false;
+                            aiCarga.IsRunning = false;
+
+                            locationLabel.Text += $"{Environment.NewLine}" +
+                            $"Lat: {ubicacion.Latitud}, Long: {ubicacion.Longitud}, Alt:{ubicacion.Altitud}" +
+                            $" - {DateTime.Now.ToLongTimeString()}";
+
+                            Console.WriteLine($"Lat: {ubicacion.Latitud}, Long: {ubicacion.Longitud}," +
+                            $", Alt:{ubicacion.Altitud} - {ubicacion.DbTimeStamp.ToLongTimeString()}");
                         });
                     });
 
@@ -128,6 +132,13 @@ namespace AppGeofencing
             MessagingCenter.Send(startServiceMessage, "ServiceStarted");
             Preferences.Set("LocationServiceRunning", true);
             locationLabel.Text = $"Location Service has been started!";
+            locationLabel2.Text = $"Location Service has been started!";
+            if (ubicacion is null)
+            {
+                slContenedor.IsVisible = false;
+                slCarga.IsVisible = true;
+                aiCarga.IsRunning = true;
+            }
         }
 
         private void StopService()

@@ -79,7 +79,7 @@ namespace AppGeofencing.Droid
 
             foreach (var service in manager.GetRunningServices(int.MaxValue))
             {
-                if (service.Service.ClassName.Equals(Java.Lang.Class.FromType(cls)))
+                if (service.Service.ClassName.Equals(Java.Lang.Class.FromType(cls).CanonicalName))
                 {
                     return true;
                 }

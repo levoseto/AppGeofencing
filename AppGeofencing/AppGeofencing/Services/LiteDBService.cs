@@ -22,7 +22,7 @@ namespace AppGeofencing.Services
         {
             Monitor.Enter(lockObject);
 #if DEBUG
-            Console.WriteLine("LiteDB Open conexion: Inserta");
+            Console.WriteLine("LiteDB open connection");
 #endif
             try
             {
@@ -32,9 +32,15 @@ namespace AppGeofencing.Services
 
                     if (objeto != null)
                     {
+                        Console.WriteLine("LiteDB CRUD: Try Insert");
                         _ = col.Insert(objeto);
+                        Console.WriteLine("LiteDB CRUD: Inserted");
                     }
                 }
+
+#if DEBUG
+                Console.WriteLine("LiteDB closed connection");
+#endif
             }
             catch (Exception ex)
             {
@@ -54,13 +60,17 @@ namespace AppGeofencing.Services
                 try
                 {
 #if DEBUG
-                    Console.WriteLine("LiteDB Open conexion: CreaTablas");
+                    Console.WriteLine("LiteDB open connection");
 #endif
                     using (var db = new LiteDatabase(_CadenaConexion))
                     {
                         var col = db.GetCollection<Ubicacion>("ubicacion");
                         col.EnsureIndex(x => x.DbTimeStamp, false);
                     }
+
+#if DEBUG
+                    Console.WriteLine("LiteDB closed connection");
+#endif
 
                     return true;
                 }
