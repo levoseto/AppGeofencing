@@ -2,11 +2,12 @@
 <ContentPage
     x:Class="AppGeofencing.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Visual="Material">
     <StackLayout>
         <Frame
             Padding="24"
-            BackgroundColor="Green"
+            BackgroundColor="#00a50a"
             CornerRadius="0">
             <Label
                 FontSize="36"
@@ -15,13 +16,17 @@
                 TextColor="White" />
         </Frame>
         <StackLayout x:Name="slContenedor">
-            <Button Clicked="Button_Clicked" Text="Start/Stop" />
+            <Button
+                BackgroundColor="Green"
+                Clicked="Button_Clicked"
+                Text="Start/Stop" />
             <ScrollView>
                 <Label x:Name="locationLabel" />
             </ScrollView>
+            <Switch />
         </StackLayout>
         <StackLayout x:Name="slCarga" IsVisible="False">
-            <ActivityIndicator x:Name="aiCarga" Color="Green" />
+            <ActivityIndicator x:Name="aiCarga" Color="#00a50a" />
             <Label x:Name="locationLabel2" />
         </StackLayout>
     </StackLayout>
