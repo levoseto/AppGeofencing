@@ -7,7 +7,7 @@
     <StackLayout>
         <Frame
             Padding="24"
-            BackgroundColor="#00a50a"
+            BackgroundColor="{StaticResource Primary}"
             CornerRadius="0">
             <Label
                 FontSize="36"
@@ -17,7 +17,7 @@
         </Frame>
         <StackLayout x:Name="slContenedor">
             <Button
-                BackgroundColor="Green"
+                BackgroundColor="{StaticResource Secondary}"
                 Clicked="Button_Clicked"
                 Text="Start/Stop" />
             <ScrollView>
@@ -26,7 +26,7 @@
             <Switch />
         </StackLayout>
         <StackLayout x:Name="slCarga" IsVisible="False">
-            <ActivityIndicator x:Name="aiCarga" Color="#00a50a" />
+            <ActivityIndicator x:Name="aiCarga" Color="{StaticResource Secondary}" />
             <Label x:Name="locationLabel2" />
         </StackLayout>
     </StackLayout>
