@@ -2,7 +2,6 @@
 using AppGeofencing.Services;
 using Plugin.Geolocator;
 using System;
-using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -121,12 +120,12 @@ namespace AppGeofencing
                 if (Preferences.Get("LocationServiceRunning", false) == false)
                 {
                     StartService();
-                    await this.ShowToastAsync("Servicio corriendo actualmente", Models.Enums.MessageType.Success);
+                    await MessageService.ShowToastAsync("Servicio corriendo actualmente", Models.Enums.MessageType.Success);
                 }
                 else
                 {
                     StopService();
-                    await this.ShowToastAsync("Servicio detenido", Models.Enums.MessageType.Warning);
+                    await MessageService.ShowToastAsync("Servicio detenido", Models.Enums.MessageType.Warning);
                 }
             }
         }

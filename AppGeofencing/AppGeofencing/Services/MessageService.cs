@@ -12,22 +12,22 @@ namespace AppGeofencing.Services
     {
         #region Toast
 
-        public static async Task ShowToastAsync(this ContentPage contentPage, string message, MessageType? messageType, int durationInSeconds = 4)
+        public static async Task ShowToastAsync(string message, MessageType? messageType, int durationInSeconds = 4)
         {
             if (MainThread.IsMainThread)
             {
-                await CreateToastAsync(contentPage, message, messageType, durationInSeconds).ConfigureAwait(false);
+                await CreateToastAsync(message, messageType, durationInSeconds).ConfigureAwait(false);
             }
             else
             {
                 await MainThread.InvokeOnMainThreadAsync(async () =>
                 {
-                    await CreateToastAsync(contentPage, message, messageType, durationInSeconds).ConfigureAwait(false);
+                    await CreateToastAsync(message, messageType, durationInSeconds).ConfigureAwait(false);
                 });
             }
         }
 
-        private static async Task CreateToastAsync(ContentPage contentPage, string message, MessageType? messageType, int durationInSeconds = 4)
+        private static async Task CreateToastAsync(string message, MessageType? messageType, int durationInSeconds = 4)
         {
             var messageOptions = new MessageOptions
             {
@@ -43,22 +43,22 @@ namespace AppGeofencing.Services
             {
                 case MessageType.Success:
                     messageOptions.Foreground = Color.White;
-                    toastOptions.BackgroundColor = Color.Green;
+                    toastOptions.BackgroundColor = Color.FromHex("#6651A121");
                     break;
 
                 case MessageType.Info:
-                    messageOptions.Foreground = Color.White;
-                    toastOptions.BackgroundColor = Color.LightBlue;
+                    messageOptions.Foreground = Color.Black;
+                    toastOptions.BackgroundColor = Color.FromHex("#660DCAF0");
                     break;
 
                 case MessageType.Warning:
                     messageOptions.Foreground = Color.Black;
-                    toastOptions.BackgroundColor = Color.Yellow;
+                    toastOptions.BackgroundColor = Color.FromHex("#66ffc107");
                     break;
 
                 case MessageType.Error:
-                    messageOptions.Foreground = Color.Black;
-                    toastOptions.BackgroundColor = Color.Red;
+                    messageOptions.Foreground = Color.White;
+                    toastOptions.BackgroundColor = Color.FromHex("#66DC3545");
                     break;
 
                 default:
@@ -67,7 +67,7 @@ namespace AppGeofencing.Services
             }
 
             toastOptions.MessageOptions = messageOptions;
-            await contentPage.DisplayToastAsync(toastOptions).ConfigureAwait(false);
+            await App.Current.MainPage.DisplayToastAsync(toastOptions).ConfigureAwait(false);
         }
 
         #endregion Toast
