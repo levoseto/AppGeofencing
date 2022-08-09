@@ -23,7 +23,6 @@
             <ScrollView>
                 <Label x:Name="locationLabel" />
             </ScrollView>
-            <Switch />
         </StackLayout>
         <StackLayout x:Name="slCarga" IsVisible="False">
             <ActivityIndicator x:Name="aiCarga" Color="{StaticResource Secondary}" />

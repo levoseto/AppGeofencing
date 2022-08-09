@@ -56,6 +56,7 @@ namespace AppGeofencing
                         MainThread.BeginInvokeOnMainThread(() =>
                         {
                             locationLabel.Text = "Location service has been stoped";
+                            ubicacion = null;
                         });
                     });
 
